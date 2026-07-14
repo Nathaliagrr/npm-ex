@@ -1,12 +1,14 @@
 import pg from 'pg';
 const {Client} = pg;
+import promptSync from 'prompt-sync';
+const prompt = promptSync();
 
 const client = new Client({
     host:   'localhost',
     port:   5432,
     user:   'postgres',
     password:   'root',
-    database:   'escola_db'
+    database:   'jogos_db'
 });
 
 async function listarNotas() {
@@ -26,4 +28,15 @@ async function listarNotas() {
     }
 };
 
+async function listarJogos() {
+    try {
+        await client.connect();
+
+        
+
+
+    }
+}
+
 listarNotas();
+
