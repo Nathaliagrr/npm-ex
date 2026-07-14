@@ -9,36 +9,21 @@ const client = new Client({
     database:   'escola_db'
 });
 
-async function totalAlunos() {
-
+async function listarNotas() {
     try {
         await client.connect();
-        const total = await client.query('SELECT COUNT(*) FROM alunos');
-        const media = await client.query('SELECT AVG(nota) FROM alunos');
 
-        console.log("batata");
+        const total = await client.query('SELECT COUNT(*) AS total FROM alunos');
+        const media = await client.query('SELECT AVG(nota) AS media FROM alunos');
 
-        total.rows.forEach(client => {
-           for(let i = 0; i < client.alunos; i++){
-            total = [i];
-            console.log("O total de alunos:  ", {total});
-           }
-        });
-        total.rows.forEach(client => {
-            for(let i = 0; i < client.nota; i++){
-                total = [i];
-                media = nota / total;
-                console.log("A média dos alunos:  ", {media});
-            }
-        })
-       
+        console.log("Total de alunos: " + total.rows[0].total);
+        console.log("Media dos alunos: " + media.rows[0].media);
 
-    } catch (erro) {
-        console.log('❌ Erro ao buscar total de alunos:', erro.message);
-
+    } catch(erro) {
+        console.log("Erro", erro.message);
     } finally {
         await client.end();
     }
-}
+};
 
-totalAlunos();
+listarNotas();
